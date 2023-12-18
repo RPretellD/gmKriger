@@ -53,7 +53,7 @@ gmKriger.get_Kgmim(site,latitude,longitude,Vs30,earthquake,model,gmim)
 | Farris Farm               |     36.9103 |    -121.744 |  0.458404 |         0.494209 |
 | POO7                      |     37.8052 |    -122.34  |  0.154422 |         0.350264 |
 
-<br>RUN this example YOURSELF [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example1.ipynb).
+<br>RUN this example YOURSELF [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_1.ipynb).
 
 
 ## Models available
@@ -116,9 +116,9 @@ The spatial correlation models for the events and ground motion intensity measur
 
 
 ## Example
-- <b>Example 1:</b> Compute PGA for the 1989 Loma Prieta Earthquake using all the 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example1.ipynb).
-- <b>Example 2:</b> Compute several ground motion intensity measures for the 2023 M7.8 Pazarcik Earthquake using the maximum aposteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example2.ipynb).
-- <b>Example 3:</b> Compute several ground motion intensity measures for the 1987 M6.5 Superstition Hills Earthquake all the 1000 and the maximum aposteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example2.ipynb).
+- <b>Example 1:</b> Compute PGA for the 1989 Loma Prieta Earthquake using all the 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_1.ipynb).
+- <b>Example 2:</b> Compute several ground motion intensity measures for the 2023 M7.8 Pazarcik Earthquake using the maximum aposteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_2.ipynb).
+- <b>Example 3:</b> Compute several ground motion intensity measures for the 1987 M6.5 Superstition Hills Earthquake all the 1000 and the maximum aposteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_3.ipynb).
 
 
 ## Citation
