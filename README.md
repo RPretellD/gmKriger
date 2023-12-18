@@ -131,3 +131,7 @@ If you use these codes, please cite:<br>
 > Pretell, R., Brandenberg, S., and Stewart, J. (2023) "Consistently computed ground motion intensity measures for liquefaction triggering assessment." DesignSafe-CI. https://doi.org/10.17603/ds2-6vj1-t096 
 
 [![DOI](https://zenodo.org/badge/732896925.svg)](https://zenodo.org/doi/10.5281/zenodo.10399418)
+
+
+## Contact
+For any questions or comments, contact Renmin Pretell at rpretell@unr.edu.
