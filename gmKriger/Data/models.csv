@@ -1,0 +1,36 @@
+earthquake,pga,pgv,ia,cav,cavdp,psa(0.3),psa(0.6),psa(1.0)
+1968 M8.2 Tokachi-Oki,1,1,1,1,0,0,0,0
+1971 M6.6 San Fernando,1,1,1,1,0,0,0,0
+1978 M7.7 Miyagiken-Oki,1,1,1,1,0,0,0,0
+1979 M6.5 Imperial Valley,1,1,1,1,0,0,0,0
+1980 M6.3 Victoria,1,1,1,1,0,0,0,0
+1981 M5.9 Westmorland,1,1,1,1,0,0,0,0
+1983 M7.7 Nihonkai-Chubu,1,1,1,1,0,0,0,0
+1983 M6.8 Nihonkai-Chubu,1,1,1,1,0,0,0,0
+1987 M6.5 Superstition Hills,1,1,1,1,0,0,0,0
+1989 M6.9 Loma Prieta,1,1,1,1,0,0,0,0
+1993 M7.6 Kushiro-Oki Hokkaido,1,1,1,1,0,0,0,0
+1994 M6.7 Northridge,1,1,1,1,0,0,0,0
+1994 M8.3 Toho-Oki Hokkaido,1,1,1,1,0,0,0,0
+1995 M6.9 Kobe,1,1,1,1,0,0,0,0
+1999 M7.5 Kocaeli,1,1,1,1,0,0,0,0
+1999 M7.6 Chi-Chi,1,1,1,1,0,0,0,0
+2000 M6.6 Tottori,1,1,1,1,0,0,0,0
+2002 M5.0 Au Sable Forks,1,1,0,0,0,0,0,0
+2003 M8.3 Tokachi,1,1,1,1,0,0,0,0
+2007 M6.8 Chuetsu-oki,1,1,1,1,0,0,0,0
+2010 M7.2 El Mayor-Cucapah,1,1,1,1,0,0,0,0
+2010 M7.0 Darfield,1,1,1,1,0,0,0,0
+2010 M8.8 Maule,1,1,1,1,0,0,0,0
+2011 M6.2 Christchurch,1,1,1,1,0,0,0,0
+2011 M5.0 Christchurch,1,0,0,0,0,0,0,0
+2011 M6.0 Christchurch,1,1,1,1,0,0,0,0
+2011 M5.9 Lyttleton,1,1,1,1,0,0,0,0
+2011 M9.1 Tohoku-Oki,1,1,1,1,0,0,0,0
+2012 M6.1 Emilia,1,1,1,1,0,0,0,0
+2012 M6.0 Emilia,1,1,1,1,0,0,0,0
+2020 M7.0 Samos,1,1,1,1,0,0,0,0
+2023 M7.8 Pazarcik,1,1,1,1,1,1,1,1
+2023 M7.7 Kahramanmaras,1,1,1,1,1,1,1,1
+2023 M6.8 Nurdagi,1,1,1,1,1,1,1,1
+2023 M6.3 Yayladagi,1,1,1,1,1,1,1,1
