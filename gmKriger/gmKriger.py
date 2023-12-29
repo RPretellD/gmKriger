@@ -19,9 +19,9 @@ def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim):
 	lat: Site latitude(s)
 	lon: Site longitude(s)
 	Vs30: Site Vs30 value(s)
-	Earthquake name: See list by using "gmKriger.show()"
+	Earthquake name: See list by using "gmKriger.models()"
 	model: Corelation model, either "All", "Realizations", or "MAP"
-	gmim: Ground motion intensity measure. See list by using "gmKriger.show()"
+	gmim: Ground motion intensity measure. See list by using "gmKriger.models()"
 	"""
 	
 	pd.set_option('display.precision', 6)
