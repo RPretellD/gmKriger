@@ -122,7 +122,7 @@ The spatial correlation models for the events and ground motion intensity measur
 
 
 ## Acknowledgements
-- The implementation of these codes greatly benefitted from discussion with Scott J. Brandenberg and Jonathan P. Stewart.
+- The implementation of these codes greatly benefitted from discussions with Scott J. Brandenberg and Jonathan P. Stewart.
 
 
 ## Citation
