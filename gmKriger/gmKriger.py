@@ -21,7 +21,7 @@ def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim):
 	Vs30: Site Vs30 value(s)
 	Earthquake name: See list by using "gmKriger.models()"
 	model: Corelation model, either "All", "Realizations", or "MAP"
-	gmim: Ground motion intensity measure. See list by using "gmKriger.models()"
+	gmim: Ground motion intensity measure. See list by using "gmKriger.show()"
 	"""
 	
 	pd.set_option('display.precision', 6)
@@ -31,27 +31,32 @@ def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim):
 	
 	# Check availability
 	models = pd.read_csv(os.path.join(cwd,'Data','models.csv'))
+	gmims  = models.columns[1:]
+	
+	if gmim.lower() not in gmims:
+		print('Please double check the requested GMIM.')
+		
 	ind1 = earthquake in models['earthquake'].values
 	ind2 = 0
 	
 	if ind1:
 		ind2 = models[models['earthquake']==earthquake][gmim].values[0]
-	
+		
 	if not ind1:
-		print('No correlation models currently implemented for {}.'.format(earthquake))
+		print('No correlation models currently available for {}.'.format(earthquake))
 		return
 		
 	elif ind1 and ind2 == 0:
-		print('No {} correlation models for {}'.format(gmim,earthquake))
+		print('No {} correlation models currently available for {}'.format(gmim,earthquake))
 		return
 	
 	else:
 		
 		# Start
-		get_label1 = dict(zip(['pga','pgv','cav','ia','psa(0.3)','psa(0.6)','psa(1.0)','cavdp'],
-					['PGA (g)','PGV (cm/s)','CAV (m/s)','Ia (m/s)','PSA(0.3) (g)','PSA(0.6) (g)','PSA(1.0) (g)','CAVdp (g/s)']))
-		get_label2 = dict(zip(['pga','pgv','cav','ia','psa(0.3)','psa(0.6)','psa(1.0)','cavdp'],
-					['PGA','PGV','CAV','Ia','PSA(0.3)','PSA(0.6)','PSA(1.0)','CAVdp']))
+		get_label1 = dict(zip(['pga','pgv','cav','ia','psa(0.100)','psa(0.300)','psa(0.600)','psa(1.000)','psa(3.000)','psa(6.000)','psa(10.000)','cavdp'],
+							['PGA (g)','PGV (cm/s)','CAV (m/s)','Ia (m/s)','PSA(0.100) (g)','PSA(0.300) (g)','PSA(0.600) (g)','PSA(1.000) (g)','PSA(3.000) (g)','PSA(6.000) (g)','PSA(10.000) (g)','CAVdp (g-s)']))
+		get_label2 = dict(zip(['pga','pgv','cav','ia','psa(0.100)','psa(0.300)','psa(0.600)','psa(1.000)','psa(3.000)','psa(6.000)','psa(10.000)','cavdp'],
+							['PGA','PGV','CAV','Ia','PSA(0.100)','PSA(0.300)','PSA(0.600)','PSA(1.000)','PSA(3.000)','PSA(6.000)','PSA(10.000)','CAVdp']))
 		label1 = get_label1[gmim]
 		label2 = get_label2[gmim]
 		

@@ -59,12 +59,20 @@ class Site:
 			self.gmim_tag = 3
 		elif gmim.lower() == 'cavdp':
 			self.gmim_tag = 4
-		elif gmim.lower() == 'psa(0.3)':
+		elif gmim.lower() == 'psa(0.100)':
 			self.gmim_tag = 5
-		elif gmim.lower() == 'psa(0.6)':
+		elif gmim.lower() == 'psa(0.300)':
 			self.gmim_tag = 6
-		elif gmim.lower() == 'psa(1.0)':
+		elif gmim.lower() == 'psa(0.600)':
 			self.gmim_tag = 7
+		elif gmim.lower() == 'psa(1.000)':
+			self.gmim_tag = 8
+		elif gmim.lower() == 'psa(3.000)':
+			self.gmim_tag = 9
+		elif gmim.lower() == 'psa(6.000)':
+			self.gmim_tag = 10
+		elif gmim.lower() == 'psa(10.000)':
+			self.gmim_tag = 11
 
 		IM_mu  = np.zeros(self.Nsites)
 		IM_phi = np.zeros(self.Nsites)
@@ -94,8 +102,8 @@ class Site:
 				print('No ground motion models currently implemented for {} events.'.format(event.tectonic))
 				return
 		
-		elif self.gmim_tag in [5,6,7]:
-			T = float(gmim[4:7])
+		elif self.gmim_tag in [5,6,7,8,9,10,11]:
+			T = float(gmim[4:9])
 			periods = pygmm.model.load_data_file('boore_stewart_seyhan_atkinson-2014.csv', 2).period
 			boo_IM  = periods==T
 				

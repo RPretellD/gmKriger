@@ -1,12 +1,18 @@
-# gmKriger: Kriging-based ground motion intensity measure calculator
+# gmKriger
 
-<b>gmKriger</b> computes ground motion intensity measures for past earthquake events given a site's location (latitude and longitude) and Vs30. 
+<b>gmKriger</b>: A Kriging-based ground motion intensity measure (GMIM) calculator. <b>gmKriger</b> computes GMIMs for past earthquake events given a site's location (latitude and longitude) and the site's Vs30. gmKriger uses Ordinary Kriging interpolation and spatial correlation model developed using a Bayesian approach, ground motion data, and the functional forms proposed by Bodenmann et al. (2023). 
 
 
 ## Installation
 
 Need the following packages:
 ```Python
+pip install nvector
+pip install torch
+pip install geopy
+pip install shapely
+pip install nvector
+
 pip install geostats
 pip install gmms
 pip install pygmm
@@ -49,90 +55,99 @@ gmKriger.get_Kgmim(site,latitude,longitude,Vs30,earthquake,model,gmim)
 |:--------------------------|------------:|------------:|----------:|-----------------:|
 | Alameda Naval Air Station |     37.7857 |    -122.309 |  0.189312 |         0.386172 |
 | Treasure Island           |     37.8261 |    -122.371 |  0.135361 |         0.273654 |
-| Alameda Bay Farm Island   |     37.7338 |    -122.25  |  0.151978 |         0.429026 |
+| Alameda Bay Farm Island   |     37.7338 |    -122.250 |  0.151978 |         0.429026 |
 | Farris Farm               |     36.9103 |    -121.744 |  0.458404 |         0.494209 |
-| POO7                      |     37.8052 |    -122.34  |  0.154422 |         0.350264 |
+| POO7                      |     37.8052 |    -122.339 |  0.154422 |         0.350264 |
 
-<br>RUN this example YOURSELF using [this](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_1.ipynb) Jupyter Notebook.
+<br>Run this example using this code: [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_1.ipynb).
 
 
 ## Models available
 
 Get them using [this code](https://github.com/RPretellD/gmKriger/blob/main/Examples/Get_models.ipynb).
 
-The spatial correlation models for the events and ground motion intensity measures below are accessible via [DesignSafe](https://www.designsafe-ci.org/data/browser/public/designsafe.storage.published/PRJ-4022) (Pretell et al. 2023).
+The spatial correlation models for the events and ground motion intensity measures below are accessible via [DesignSafe](https://www.designsafe-ci.org/data/browser/public/designsafe.storage.published/PRJ-4022v2) (Pretell et al. 2023).
 
-|           Earthquake           |   PGA    |   PGV    |    Ia    |   CAV    |  CAVdp   | PSA(0.3) | PSA(0.6) | PSA(1.0) |
-|--------------------------------|----------|----------|----------|----------|----------|----------|----------|----------|
-| 1968 M8.2 Tokachi-Oki          | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1971 M6.6 San Fernando         | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1978 M7.7 Miyagiken-Oki        | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1979 M6.5 Imperial Valley      | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1980 M6.3 Victoria             | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1981 M5.9 Westmorland          | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1983 M7.7 Nihonkai-Chubu       | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1983 M6.8 Nihonkai-Chubu       | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1987 M6.5 Superstition Hills   | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1989 M6.9 Loma Prieta          | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1993 M7.6 Kushiro-Oki Hokkaido | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1994 M6.7 Northridge           | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1994 M8.3 Toho-Oki Hokkaido    | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1995 M6.9 Kobe                 | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1999 M7.5 Kocaeli              | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 1999 M7.6 Chi-Chi              | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2000 M6.6 Tottori              | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2002 M5.0 Au Sable Forks       | Yes      | Yes      | No       | No       | No       | No       | No       | No       |
-| 2003 M8.3 Tokachi              | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2007 M6.8 Chuetsu-oki          | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2010 M7.2 El Mayor-Cucapah     | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2010 M7.0 Darfield             | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2010 M8.8 Maule                | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2011 M6.2 Christchurch         | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2011 M5.0 Christchurch         | Yes      | No       | No       | No       | No       | No       | No       | No       |
-| 2011 M6.0 Christchurch         | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2011 M5.9 Lyttleton            | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2011 M9.1 Tohoku-Oki           | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2012 M6.1 Emilia               | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2012 M6.0 Emilia               | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2020 M7.0 Samos                | Yes      | Yes      | Yes      | Yes      | No       | No       | No       | No       |
-| 2023 M7.8 Pazarcik             | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      |
-| 2023 M7.7 Kahramanmaras        | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      |
-| 2023 M6.8 Nurdagi              | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      |
-| 2023 M6.3 Yayladagi            | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      | Yes      |
+|           Earthquake           |   PGA    |   PGV    |    Ia    |   CAV    |  CAVdp   | PSA(0.100) | PSA(0.300) | PSA(0.600) | PSA(1.000) | PSA(3.000) | PSA(6.000) | PSA(10.000) |
+|--------------------------------|----------|----------|----------|----------|----------|------------|------------|------------|------------|------------|------------|-------------|
+| 1968 M8.2 Tokachi-Oki          | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1971 M6.6 San Fernando         | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1978 M7.7 Miyagiken-Oki        | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1979 M6.5 Imperial Valley      | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1980 M6.3 Victoria             | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1981 M5.9 Westmorland          | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1983 M7.7 Nihonkai-Chubu       | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1983 M6.8 Nihonkai-Chubu       | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1987 M6.5 Superstition Hills   | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1989 M6.9 Loma Prieta          | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1993 M7.6 Kushiro-Oki Hokkaido | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1994 M6.7 Northridge           | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1994 M8.3 Toho-Oki Hokkaido    | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1995 M6.9 Kobe                 | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1999 M7.5 Kocaeli              | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 1999 M7.6 Chi-Chi              | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2000 M6.6 Tottori              | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2002 M5.0 Au Sable Forks       | No       | No       | No       | No       | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2003 M8.3 Tokachi              | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2007 M6.8 Chuetsu-oki          | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2010 M7.2 El Mayor-Cucapah     | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2010 M7.0 Darfield             | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2010 M8.8 Maule                | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2011 M6.2 Christchurch         | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2011 M5.0 Christchurch         | Yes      | No       | No       | No       | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2011 M6.0 Christchurch         | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2011 M5.9 Lyttleton            | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2011 M9.1 Tohoku-Oki           | No       | No       | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |	
+| 2012 M6.1 Emilia               | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2012 M6.0 Emilia               | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2019 M7.06 Ridgecrest          | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2019 M6.48 Ridgecrest          | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2020 M7.0 Samos                | Yes      | Yes      | Yes      | Yes      | No       | No         | No         | No         | No         | No         | No         | No          |
+| 2023 M7.81 Pazarcik            | Yes      | Yes      | Yes      | Yes      | Yes      | Yes        | Yes        | Yes        | Yes        | Yes        | Yes        | Yes         |
+| 2023 M7.74 Kahramanmaras       | Yes      | Yes      | Yes      | Yes      | Yes      | Yes        | Yes        | Yes        | Yes        | Yes        | Yes        | Yes         |
+| 2023 M6.81 Nurdagi             | Yes      | Yes      | Yes      | Yes      | Yes      | Yes        | Yes        | Yes        | Yes        | Yes        | Yes        | Yes         |
+| 2023 M6.37 Yayladagi           | Yes      | Yes      | Yes      | Yes      | Yes      | Yes        | Yes        | Yes        | Yes        | Yes        | Yes        | Yes         |
+
+Note: The CAVdp values estimated by gmKriger require close attention. Some estimates might be unexpectedly high at R_JB > 100 km, when no seismic station is nearby. 
 
 
 ## Ground motion intensity measures (GMIMs) and units
+The GMIM should be input as string type, and be written as shown (PSA should have all the zeros). 
 
-| GMIM                                 | Key      | Unit |
-|--------------------------------------|----------|------|
-| Peak ground aceleration              | PGA      | g    |
-| Peak ground velocity                 | PGV      | cm/s |
-| Arias intensity                      | Ia       | m/s  |
-| Cumulative absolute velocity         | CAV      | m/s  |
-| Damage-potential CAV                 | CAVdp    | g-s  |
-| Pseudo-spectral acceleration @ 0.3 s | PSA(0.3) | g    |
-| Pseudo-spectral acceleration @ 0.6 s | PSA(0.6) | g    |
-| Pseudo-spectral acceleration @ 1.0 s | PSA(1.0) | g    |
+| GMIM                                  | Key         | Unit |
+|---------------------------------------|-------------|------|
+| Peak ground aceleration               | PGA         | g    |
+| Peak ground velocity                  | PGV         | cm/s |
+| Arias intensity                       | Ia          | m/s  |
+| Cumulative absolute velocity          | CAV         | m/s  |
+| Damage-potential CAV                  | CAVdp       | g-s  |
+| Pseudo-spectral acceleration @ 0.1 s  | PSA(0.100)  | g    |
+| Pseudo-spectral acceleration @ 0.3 s  | PSA(0.300)  | g    |
+| Pseudo-spectral acceleration @ 0.6 s  | PSA(0.600)  | g    |
+| Pseudo-spectral acceleration @ 1.0 s  | PSA(1.000)  | g    |
+| Pseudo-spectral acceleration @ 3.0 s  | PSA(3.000)  | g    |
+| Pseudo-spectral acceleration @ 6.0 s  | PSA(6.000)  | g    |
+| Pseudo-spectral acceleration @ 10.0 s | PSA(10.000) | g    |
 
 
-## Example
-- [Example 1](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_1.ipynb): Compute PGA for the 1989 Loma Prieta Earthquake using all the 1000 spatial correlation models.
-- [Example 2](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_2.ipynb): Compute several ground motion intensity measures for the 2023 M7.8 Pazarcik Earthquake using the maximum a posteriori spatial correlation model.
-- [Example 3](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_3.ipynb): Compute several ground motion intensity measures for the 1987 M6.5 Superstition Hills Earthquake all the 1000 and the maximum a posteriori spatial correlation model.
+## Examples
+- <b>Example 1:</b> Compute PGA for the 1989 Loma Prieta Earthquake using all the 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_1.ipynb).
+- <b>Example 2:</b> Compute several ground motion intensity measures for the 2023 M7.8 Pazarcik Earthquake using the maximum aposteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_2.ipynb).
+- <b>Example 3:</b> Compute several ground motion intensity measures for the 1987 M6.5 Superstition Hills Earthquake all the 1000 and the maximum aposteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_3.ipynb).
 
 
 ## Acknowledgements
-- The implementation of these codes greatly benefitted from discussions with Scott J. Brandenberg and Jonathan P. Stewart.
+- The implementation of gmKriger greatly benefitted from discussions with Scott J. Brandenberg and Jonathan P. Stewart.
 
 
 ## Citation
 If you use these codes, please cite:<br>
 
-> Pretell, R. (2023). gmKriger: Kriging-based ground motion intensity measure calculator (0.1.0). Zenodo. https://doi.org/10.5281/zenodo.10399419<br>
+> Pretell, R. (2023). RPretellD/gmKriger: Initial release (0.2.0). Zenodo. https://doi.org/10.5281/zenodo.10399419<br>
 
-> Pretell, R., Brandenberg, S.J., and Stewart, J.P. "Consistently computed ground motion intensity measures at liquefaction case history sites". (In preparation). 
+> Pretell, R., Brandenberg, S.J., and Stewart, J.P. "Optimizing ground motion intensity measures for soil liquefaction case histories." (In preparation). 
 
-> Pretell, R., Brandenberg, S., and Stewart, J. (2023) "Consistently computed ground motion intensity measures for liquefaction triggering assessment." DesignSafe-CI. https://doi.org/10.17603/ds2-6vj1-t096 
+> Pretell, R., Brandenberg, S., and Stewart, J. (2023) "Consistently computed ground motion intensity measures for liquefaction triggering assessment." DesignSafe-CI. https://doi.org/10.17603/ds2-6vj1-t096 v2
 
 [![DOI](https://zenodo.org/badge/732896925.svg)](https://zenodo.org/doi/10.5281/zenodo.10399418)
 
