@@ -149,7 +149,7 @@ gmKriger.get_Kgmim(site,latitude,longitude,Vs30,earthquake,model,gmim)
 ## Citation
 If you use these codes, please cite:<br>
 
-> Pretell, R. (2023). RPretellD/gmKriger: Initial release (0.2.0). Zenodo. https://doi.org/10.5281/zenodo.10399419<br>
+> Pretell, R. (2024). gmKriger: A Kriging-based ground motion intensity measure calculator (0.2.0). Zenodo. https://doi.org/10.5281/zenodo.10691892<br>
 
 > Pretell, R., Brandenberg, S.J., and Stewart, J.P. "Optimizing ground motion intensity measures for soil liquefaction case histories." (In preparation). 
 
