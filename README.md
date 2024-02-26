@@ -149,14 +149,11 @@ gmKriger.get_Kgmim(site,latitude,longitude,Vs30,earthquake,model,gmim)
 ## Citation
 If you use these codes, please cite:<br>
 
-> Pretell, R. (2024). gmKriger: A Kriging-based ground motion intensity measure calculator (0.2.0). Zenodo. https://doi.org/10.5281/zenodo.10691892<br>
-
-> Pretell, R., Brandenberg, S.J., and Stewart, J.P. "Optimizing ground motion intensity measures for soil liquefaction case histories." (In preparation). 
+> Pretell, R. (2024). gmKriger: A Kriging-based ground motion intensity measure calculator (0.2.0). Zenodo. https://doi.org/10.5281/zenodo.10691892<br> [![DOI](https://zenodo.org/badge/732896925.svg)](https://zenodo.org/doi/10.5281/zenodo.10399418)
 
 > Pretell, R., Brandenberg, S., and Stewart, J. (2023) "Consistently computed ground motion intensity measures for liquefaction triggering assessment." DesignSafe-CI. https://doi.org/10.17603/ds2-6vj1-t096 v2
 
-[![DOI](https://zenodo.org/badge/732896925.svg)](https://zenodo.org/doi/10.5281/zenodo.10399418)
-
+> Pretell, R., Brandenberg, S.J., Stewart, J.P. (2024). "Consistent framework for PGA estimation at liquefaction case history sites: Application to the 1989 M6.9 Loma Prieta Earthquake." In: *Proceedings of Geo-Congress 2024*, Vancouver, Canada, Feb. 25-28, 2024. https://doi.org/10.1061/9780784485316.018
 
 ## Contact
 For any questions or comments, contact Renmin Pretell at rpretell@unr.edu.
