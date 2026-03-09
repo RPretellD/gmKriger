@@ -1,0 +1,6 @@
+include *.py
+include *.cff
+include README.md
+include HISTORY.md
+include LICENSE
+recursive-include gmms *.py *.pyx

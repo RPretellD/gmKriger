@@ -1,0 +1,137 @@
+# gmKriger
+
+<b>gmKriger</b>: A Kriging-based ground motion intensity measure (GMIM) calculator. <b>gmKriger</b> computes GMIMs for past earthquake events given a site's location (latitude and longitude) and the site's Vs30. gmKriger uses Ordinary Kriging interpolation and spatial correlation model developed using a Bayesian approach, ground motion data, and the functional forms proposed by Bodenmann et al. (2023). 
+
+
+## Ground motion intensity measures (GMIMs) and units
+
+| GMIM                                  | Key         | Unit |
+|---------------------------------------|-------------|------|
+| Peak ground acceleration              | PGA         | g    |
+| Peak ground velocity                  | PGV         | cm/s |
+| Arias intensity                       | Ia          | m/s  |
+| Cumulative absolute velocity          | CAV         | m/s  |
+
+
+## Models available
+
+Get them using [this code](https://github.com/RPretellD/gmKriger/blob/main/Examples/Get_models.ipynb).
+
+The spatial correlation models for the events and ground motion intensity measures below are accessible via [DesignSafe](https://www.designsafe-ci.org/data/browser/public/designsafe.storage.published/PRJ-4022v2) (Pretell et al. 2023).
+
+|           Earthquake           |   PGA    |   PGV    |    Ia    |   CAV    |
+|--------------------------------|----------|----------|----------|----------|
+| 1968 M8.2 Tokachi-Oki          | No       | No       | Yes      | Yes      |
+| 1971 M6.6 San Fernando         | Yes      | Yes      | Yes      | Yes      |
+| 1978 M7.7 Miyagiken-Oki        | No       | No       | Yes      | Yes      |
+| 1979 M6.5 Imperial Valley      | Yes      | Yes      | Yes      | Yes      |
+| 1980 M6.3 Victoria             | Yes      | Yes      | Yes      | Yes      |
+| 1981 M5.9 Westmorland          | Yes      | Yes      | Yes      | Yes      |
+| 1983 M7.7 Nihonkai-Chubu       | No       | No       | Yes      | Yes      |
+| 1983 M6.8 Nihonkai-Chubu       | No       | No       | Yes      | Yes      |
+| 1987 M6.5 Superstition Hills   | Yes      | Yes      | Yes      | Yes      |
+| 1989 M6.9 Loma Prieta          | Yes      | Yes      | Yes      | Yes      |
+| 1993 M7.6 Kushiro-Oki Hokkaido | No       | No       | Yes      | Yes      |
+| 1994 M6.7 Northridge           | Yes      | Yes      | Yes      | Yes      |
+| 1994 M8.3 Toho-Oki Hokkaido    | No       | No       | Yes      | Yes      |
+| 1995 M6.9 Kobe                 | Yes      | Yes      | Yes      | Yes      |
+| 1999 M7.5 Kocaeli              | Yes      | Yes      | Yes      | Yes      |
+| 1999 M7.6 Chi-Chi              | Yes      | Yes      | Yes      | Yes      |
+| 2000 M6.6 Tottori              | Yes      | Yes      | Yes      | Yes      |
+| 2003 M8.3 Tokachi              | No       | No       | Yes      | Yes      |
+| 2007 M6.8 Chuetsu-oki          | Yes      | Yes      | Yes      | Yes      |
+| 2010 M7.2 El Mayor-Cucapah     | Yes      | Yes      | Yes      | Yes      |
+| 2010 M7.0 Darfield             | Yes      | Yes      | Yes      | Yes      |
+| 2010 M8.8 Maule                | No       | No       | Yes      | Yes      |
+| 2011 M6.2 Christchurch         | Yes      | Yes      | Yes      | Yes      |
+| 2011 M5.0 Christchurch         | Yes      | No       | No       | No       |
+| 2011 M6.0 Christchurch         | Yes      | Yes      | Yes      | Yes      |
+| 2011 M5.9 Lyttleton            | Yes      | Yes      | Yes      | Yes      |
+| 2011 M9.1 Tohoku-Oki           | No       | No       | Yes      | Yes      |
+| 2012 M6.1 Emilia               | Yes      | Yes      | Yes      | Yes      |
+| 2012 M6.0 Emilia               | Yes      | Yes      | Yes      | Yes      |
+| 2019 M7.06 Ridgecrest          | Yes      | Yes      | Yes      | Yes      |
+| 2019 M6.48 Ridgecrest          | Yes      | Yes      | Yes      | Yes      |
+| 2020 M7.0 Samos                | Yes      | Yes      | Yes      | Yes      |
+| 2023 M7.81 Pazarcik            | Yes      | Yes      | Yes      | Yes      |
+| 2023 M7.74 Kahramanmaras       | Yes      | Yes      | Yes      | Yes      |
+| 2023 M6.81 Nurdagi             | Yes      | Yes      | Yes      | Yes      |
+| 2023 M6.37 Yayladagi           | Yes      | Yes      | Yes      | Yes      |
+
+
+## Installation
+
+Install the following Python libraries. **Important:** `gmKriger` currently requires the above **specific `pygmm` commit.** 
+
+```Python
+pip install gmms geostats
+pip install git+https://github.com/arkottke/pygmm@46403fd0a2c5ac1273e5837956971316360fa081
+pip install gmKriger
+```
+
+
+## How to use
+
+### Inputs
+<b>site:</b><br>Site ID(s) or site name(s).<br><br>
+<b>latitude:</b><br>Site's latitude(s).<br><br>
+<b>longitude:</b><br>Site's longitude(s).<br><br>
+<b>Vs30:</b><br>Time-average shear-wave velocity in the top 30 m for the site(s).<br><br>
+<b>earthquake:</b><br>Event from the available models (e.g., '1989 M6.9 Loma Prieta').<br><br>
+<b>model:</b><br>
+- ***realizations:*** To use 1000 spatial correlation models.<br>
+- ***MAP:***          To use the maximum a posteriori spatial correlation model.<br>
+<b>gmim:</b><br>Ground motion intensity measure from the available models (e.g., 'PGA'). 
+
+
+### Run
+```Python
+import gmKriger
+
+site      = ['Alameda Naval Air Station', 'Treasure Island', 'Alameda Bay Farm Island', 'Farris Farm', 'POO7']
+latitude  = [37.785748,37.8261394,37.73380567,36.91026828,37.805242]
+longitude = [-122.309346,-122.3712351,-122.250101,-121.7437891,-122.339702]
+Vs30      = [186.2,181.1,230.7,209.5,223]
+
+earthquake = '1989 M6.9 Loma Prieta'
+model      = 'realizations'
+gmim       = 'PGA'
+
+gmKriger.get_Kgmim(site,latitude,longitude,Vs30,earthquake,model,gmim)
+```
+| Site                      |   Lat (deg) |   Lon (deg) |   PGA (g) | sigma_PGA (ln) |
+|:--------------------------|------------:|------------:|----------:|---------------:|
+| Alameda Bay Farm Island   |      37.734 |    -122.250 |     0.148 |          0.402 |
+| Alameda Naval Air Station |      37.786 |    -122.309 |     0.201 |          0.298 |
+| Farris Farm               |      36.910 |    -121.744 |     0.347 |          0.354 |
+| POO7                      |      37.805 |    -122.340 |     0.149 |          0.329 |
+| Treasure Island           |      37.826 |    -122.371 |     0.131 |          0.256 |
+
+
+## Examples
+- <b>Example 1:</b> Compute PGA for the 1989 Loma Prieta Earthquake using all the 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_1.ipynb).
+- <b>Example 2:</b> Compute several ground motion intensity measures for the 2023 M7.8 Pazarcik Earthquake using the maximum a posteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_2.ipynb).
+- <b>Example 3:</b> Compute several ground motion intensity measures for the 1987 M6.5 Superstition Hills Earthquake all the 1000 and the maximum a posteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_3.ipynb).
+
+
+## Acknowledgements
+Albert R. Kottke kindly allowed modifications to the pygmm NGAWest2 GMM implementations that benefit gmKriger. This is greatly appreciated. 
+
+
+## Citation
+> Pretell, R., Brandenberg, S.J., and Stewart, J.P. (2026). gmKriger: A Kriging-based ground motion intensity measure calculator (1.0.0). Zenodo. https://doi.org/10.5281/zenodo.10399418
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10399418.svg)](https://doi.org/10.5281/zenodo.10399418)
+
+## Relevant publications
+> Pretell, R., Brandenberg, S.J., and Stewart, J.P. (2026). “Ground motion intensity measures at liquefaction field case history sites.” *Journal of Geotechnical and Geoenvironmental Engineering. 10.1061/JGGEFK/GTENG-14212 *(In Press).*
+
+> Pretell, R., Brandenberg, S.J., Stewart, J.P. (2024). *Ground motion intensity measures at liquefaction field case history sites.* Report submitted to CALTRANS. GIRS-2024-02. http://doi.org/10.34948/N35K59
+
+> Pretell, R., Brandenberg, S.J., Stewart, J.P. (2024). "Consistent framework for PGA estimation at liquefaction case history sites: Application to the 1989 M6.9 Loma Prieta Earthquake." In: *Proceedings of Geo-Congress 2024*, Vancouver, Canada, Feb. 25-28, 2024. https://doi.org/10.1061/9780784485316.018
+
+## Dataset
+> Pretell, R., Brandenberg, S., and Stewart, J. (2026). "Consistently computed ground motion intensity measures for liquefaction triggering assessment." DesignSafe-CI. https://doi.org/10.17603/ds2-6vj1-t096 v3
+
+## Contact
+For any questions or comments, contact Renmin Pretell (rpretell at unr.edu).
