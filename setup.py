@@ -6,7 +6,7 @@ with open("README.md","r", encoding = 'utf-8') as fp:
 # Call setup
 setup(
     name="gmKriger",
-    version="1.1.0",
+    version="1.1.1",
 
     description="Kriging-based ground motion intensity measure calculator.",
     author="Renmin Pretell",

@@ -19,3 +19,6 @@
 - Fixed typo "Lyttleton" to "Lyttelton" in the data files. 
 - Added backend selection capability (Cython or Python). Backend can also be extracted to confirm. 
 - Other less important modifications. 
+
+### V1.1.1
+- Something went wrong with the v1.1.0 release on GitHub. Bumping version to keep consistency between GitHub and Zenodo. 

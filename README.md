@@ -121,7 +121,7 @@ Albert R. Kottke kindly allowed modifications to the pygmm NGAWest2 GMM implemen
 
 
 ## Citation
-> Pretell, R., Brandenberg, S.J., and Stewart, J.P. (2026). gmKriger: A Kriging-based ground motion intensity measure calculator (1.1.0). Zenodo. https://doi.org/10.5281/zenodo.10399418
+> Pretell, R., Brandenberg, S.J., and Stewart, J.P. (2026). gmKriger: A Kriging-based ground motion intensity measure calculator (1.1.1). Zenodo. https://doi.org/10.5281/zenodo.10399418
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10399418.svg)](https://doi.org/10.5281/zenodo.10399418)
 
