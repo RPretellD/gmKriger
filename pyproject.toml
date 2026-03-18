@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gmKriger"
-version = "1.0.0"
+version = "1.1.0"
 description = "Kriging-based ground motion intensity measure calculator."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -18,8 +18,8 @@ authors = [
 
 dependencies = [
 	"numpy",
-	"geostats",
-	"gmms",
+	"geostats>=1.0.2",
+	"gmms>=1.0.2",
 	"pygmm",
 ]
 keywords = ["ground motion","Kriging","interpolation"]
@@ -32,4 +32,4 @@ classifiers=[
 include-package-data = true
 
 [tool.setuptools.package-data]
-gmKriger = ["Data/*.json", "Data/models.csv"]
+gmKriger = ["data/*.json", "data/models.csv"]

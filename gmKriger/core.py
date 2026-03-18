@@ -9,9 +9,6 @@ from .helpers import make_array
 __author__ = 'A. Renmin Pretell Ductram'
 
 
-gmms.distancetools.select_backend('Cython')
-
-
 def set_gmim_tag(gmim):
 	
 	if gmim.lower() == 'pga':
@@ -46,7 +43,7 @@ def set_gmim_tag(gmim):
 
 class Site:
 
-	def __init__(self, latitude, longitude, Vs30=None, Z1p0=None, Z2p5=None):
+	def __init__(self, latitude, longitude, Vs30, Z1p0=None, Z2p5=None):
 		self.Nsites    = len(latitude)
 		self.latitude  = latitude
 		self.longitude = longitude
@@ -54,8 +51,10 @@ class Site:
 		self.IM_phi = np.full(self.Nsites, np.nan)
 		self.IM_tau = np.full(self.Nsites, np.nan)
 
-		if Vs30 is not None:
-			self.Vs30 = Vs30
+		if Vs30 is None:
+			raise ValueError('V_S30 must be provided.')
+		else:
+			self.Vs30 = np.maximum(Vs30, 150.)
 
 		if Z1p0 is None and Vs30 is not None:
 			self.Z1p0 = np.exp((-7.15/4)*np.log((self.Vs30**4+571**4)/(1360**4+571**4)))/1000. # km
@@ -69,8 +68,6 @@ class Site:
 
 
 	def get_distances(self, fault):
-		gmms.distancetools.select_backend('Python')
-
 		params = [*fault]
 		params = sum([[self.latitude.tolist(),self.longitude.tolist()],params],[])
 		params = make_array(params)
@@ -87,13 +84,12 @@ class Site:
 		IM_mu  = np.zeros([self.Nsites,self.Ngmim])
 		IM_phi = np.zeros([self.Nsites,self.Ngmim])
 		IM_tau = np.zeros([self.Nsites,self.Ngmim])
-
+        
 		if self.gmim_tag in [0, 1]:
 			
 			for i in range(self.Nsites):
-
 				scenario = pygmm.Scenario(mag=event.M,v_s30=self.Vs30[i],dist_jb=self.Rjb[i],dist_rup=self.Rrup[i],dist_x=self.Rx[i],dist_y0=self.Ry0[i],
-							 depth_1_0=self.Z1p0[i],depth_2_5=self.Z2p5[i],depth_tor=fault.rZtor,on_hanging_wall=(self.Rx[i]>0),
+							 depth_1_0=self.Z1p0[i],depth_2_5=self.Z2p5[i],depth_tor=fault.rZtor,on_hanging_wall=(self.Rx[i]>0),depth_hyp=event.hyp_Z,
 							 dip=fault.rdip,width=fault.rwidth,dist_crjb=False,is_aftershock=False,mechanism=fault.fmech,region=event.region)
 				self.scenario = scenario
 				

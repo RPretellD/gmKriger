@@ -1,0 +1,4 @@
+numpy
+geostats>=1.0.2
+gmms>=1.0.2
+pygmm

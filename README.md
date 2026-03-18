@@ -15,7 +15,7 @@
 
 ## Models available
 
-Get them using [this code](https://github.com/RPretellD/gmKriger/blob/main/Examples/Get_models.ipynb).
+Get them using [this code](https://github.com/RPretellD/gmKriger/blob/main/examples/Get_models.ipynb).
 
 The spatial correlation models for the events and ground motion intensity measures below are accessible via [DesignSafe](https://www.designsafe-ci.org/data/browser/public/designsafe.storage.published/PRJ-4022v2) (Pretell et al. 2023).
 
@@ -46,7 +46,7 @@ The spatial correlation models for the events and ground motion intensity measur
 | 2011 M6.2 Christchurch         | Yes      | Yes      | Yes      | Yes      |
 | 2011 M5.0 Christchurch         | Yes      | No       | No       | No       |
 | 2011 M6.0 Christchurch         | Yes      | Yes      | Yes      | Yes      |
-| 2011 M5.9 Lyttleton            | Yes      | Yes      | Yes      | Yes      |
+| 2011 M5.9 Lyttelton            | Yes      | Yes      | Yes      | Yes      |
 | 2011 M9.1 Tohoku-Oki           | No       | No       | Yes      | Yes      |
 | 2012 M6.1 Emilia               | Yes      | Yes      | Yes      | Yes      |
 | 2012 M6.0 Emilia               | Yes      | Yes      | Yes      | Yes      |
@@ -101,17 +101,19 @@ gmKriger.get_Kgmim(site,latitude,longitude,Vs30,earthquake,model,gmim)
 ```
 | Site                      |   Lat (deg) |   Lon (deg) |   PGA (g) | sigma_PGA (ln) |
 |:--------------------------|------------:|------------:|----------:|---------------:|
-| Alameda Bay Farm Island   |      37.734 |    -122.250 |     0.148 |          0.402 |
-| Alameda Naval Air Station |      37.786 |    -122.309 |     0.201 |          0.298 |
-| Farris Farm               |      36.910 |    -121.744 |     0.347 |          0.354 |
-| POO7                      |      37.805 |    -122.340 |     0.149 |          0.329 |
-| Treasure Island           |      37.826 |    -122.371 |     0.131 |          0.256 |
+| Alameda Bay Farm Island   |      37.734 |    -122.250 |     0.151 |          0.396 |
+| Alameda Naval Air Station |      37.786 |    -122.309 |     0.204 |          0.294 |
+| Farris Farm               |      36.910 |    -121.744 |     0.350 |          0.350 |
+| POO7                      |      37.805 |    -122.340 |     0.152 |          0.322 |
+| Treasure Island           |      37.826 |    -122.371 |     0.133 |          0.250 |
 
 
 ## Examples
-- <b>Example 1:</b> Compute PGA for the 1989 Loma Prieta Earthquake using all the 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_1.ipynb).
-- <b>Example 2:</b> Compute several ground motion intensity measures for the 2023 M7.8 Pazarcik Earthquake using the maximum a posteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_2.ipynb).
-- <b>Example 3:</b> Compute several ground motion intensity measures for the 1987 M6.5 Superstition Hills Earthquake all the 1000 and the maximum a posteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/Examples/Example_3.ipynb).
+- <b>Example 1:</b> Compute PGAs for the 1989 Loma Prieta Earthquake using all the 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/examples/Example_1_LomaPrieta89_PGAs.ipynb).
+- <b>Example 2:</b> Cython backend. Compute PGA, PGV, Ia, and CAV for the 1989 Loma Prieta Earthquake using 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/examples/Example_2_LomaPrieta89_Cython.ipynb).
+- <b>Example 3:</b> Python backend. Compute PGA, PGV, Ia, and CAV for the 1989 Loma Prieta Earthquake using 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/examples/Example_3_LomaPrieta89_Python.ipynb).
+- <b>Example 4:</b> Compute PGA, PGV, Ia, and CAV for the 2023 M7.8 Pazarcik Earthquake using the maximum a posteriori spatial correlation model. [here](https://github.com/RPretellD/gmKriger/blob/main/examples/Example_4_Turkey23.ipynb).
+- <b>Example 5:</b> Compute PGA, PGV, Ia, and CAV for the 1987 M6.5 Superstition Hills Earthquake all the 1000 spatial correlation models. [here](https://github.com/RPretellD/gmKriger/blob/main/examples/Example_5_SuperstitionHills87.ipynb).
 
 
 ## Acknowledgements
@@ -119,7 +121,7 @@ Albert R. Kottke kindly allowed modifications to the pygmm NGAWest2 GMM implemen
 
 
 ## Citation
-> Pretell, R., Brandenberg, S.J., and Stewart, J.P. (2026). gmKriger: A Kriging-based ground motion intensity measure calculator (1.0.0). Zenodo. https://doi.org/10.5281/zenodo.10399418
+> Pretell, R., Brandenberg, S.J., and Stewart, J.P. (2026). gmKriger: A Kriging-based ground motion intensity measure calculator (1.1.0). Zenodo. https://doi.org/10.5281/zenodo.10399418
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10399418.svg)](https://doi.org/10.5281/zenodo.10399418)
 

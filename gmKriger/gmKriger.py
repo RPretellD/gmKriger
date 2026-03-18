@@ -6,18 +6,13 @@ import numpy as np
 import pandas as pd
 import geostats
 from .reader import read_data
-from .core import Site
-from .core import GMM_gmIM
-from .helpers import make_array
+from .core import Site, GMM_gmIM
+from .helpers import make_array, select_backend
 
 __author__ = 'A. Renmin Pretell Ductram'
 
 
-geostats.geostats_tools.select_backend('Cython')
-geostats.build_Mrho.select_backend('Cython')
-
-
-def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim):
+def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim,backend="Cython"):
 	
 	"""
 	ID: Site name(s)
@@ -28,15 +23,17 @@ def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim):
 	model: Correlation model, either "Realizations", or "MAP" for maximum a-posteriori. 
 	gmim: Ground motion intensity measure. See list by using "gmKriger.models()"
 	"""
-
+    
+	select_backend(backend)
+    
 	pd.set_option('display.precision', 6)
-	cwd  = os.path.abspath(__file__).lower().split('gmkriger.py')[0]
-	gmim = gmim.lower()
-
-	models = pd.read_csv(os.path.join(cwd,'Data','models.csv'))
+    
+	cwd    = os.path.dirname(os.path.abspath(__file__))
+	models = pd.read_csv(os.path.join(cwd,'data','models.csv'))
 	gmims  = models.columns[1:]
+	gmim   = gmim.lower()
 
-	if gmim.lower() not in gmims:
+	if gmim not in gmims:
 		raise NotImplementedError('gmKriger does not currently support the requested ground motion IM.')
 
 	ind1 = earthquake in models['earthquake'].values
@@ -89,7 +86,11 @@ def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim):
 		site = Site(lat, lon, Vs30, Z1p0=None, Z2p5=None)
 		site.get_distances(fault)
 		site.get_gmim(event, fault, gmim, gmms)
-
+		# print(site.gmmIM_mu)
+		# print(site.Vs30_raw)
+		# print(site.Vs30)
+		# print(site.Z1p0)
+		# print(site.Z2p5)
 		# Kriging
 		out_mu = np.zeros([Ngmms,Nmodel,Nsites])
 		out_va = np.zeros([Ngmms,Nmodel,Nsites])
@@ -116,7 +117,8 @@ def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim):
 		K_WER_mean = np.mean(out_mu,axis=1).T
 		K_WER_std  = np.sqrt(np.mean(out_va,axis=1)+np.std(out_mu,axis=1)**2).T
 		K_IM_mu    = np.exp(site.gmmIM_mu+eta_arr+K_WER_mean)
-
+        
+        
 		mu_p = np.log(K_IM_mu) * gmm_w_arr
 		mu_p = np.sum(mu_p,axis=1)
 		mu_p = np.exp(mu_p)
@@ -132,8 +134,8 @@ def get_Kgmim(ID,lat,lon,Vs30,earthquake,model,gmim):
 
 
 def models():
-	models = pd.read_csv(os.path.join(os.path.abspath(__file__).lower().split('gmkriger.py')[0],'Data','models.csv'))
+	cwd    = os.path.dirname(os.path.abspath(__file__))
+	models = pd.read_csv(os.path.join(cwd,'data','models.csv'))
 	models.replace(1, 'Yes', inplace=True)
 	models.replace(0, 'No', inplace=True)
 	return models
-

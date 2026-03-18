@@ -2,6 +2,8 @@
 """
 
 import numpy as np
+import geostats
+import gmms
 
 __author__ = 'A. Renmin Pretell Ductram'
 
@@ -19,3 +21,14 @@ def make_array(my_list):
 		else:
 			vals.append(val[0])
 	return vals
+
+
+def select_backend(backend='python'):   
+	geostats.geostats_tools.select_backend(backend)
+	geostats.build_Mrho.select_backend(backend)
+	gmms.distancetools.select_backend(backend)
+
+def get_backends():
+	return	{"geostats_tools": geostats.geostats_tools.get_backend(),
+			"build_Mrho": geostats.build_Mrho.get_backend(),
+			"gmms_distancetools": gmms.distancetools.get_backend()}

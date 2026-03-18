@@ -12,8 +12,10 @@ __author__ = 'A. Renmin Pretell Ductram'
 
 
 def read_data(earthquake,gmim,model):
+    
+	cwd = os.path.dirname(os.path.abspath(__file__))
 
-	with open(os.path.join(os.path.abspath(__file__).lower().split('reader.py')[0],'Data','{}.json'.format(earthquake)), 'r') as f:
+	with open(os.path.join(cwd,'data','{}.json'.format(earthquake)), 'r') as f:
 		data = json.load(f)
 
 	stlat = data['wer'][gmim.lower()]['lat']
@@ -35,17 +37,6 @@ def read_data(earthquake,gmim,model):
 		LE     = data['rho_map'][gmim]['le']
 		gammaE = data['rho_map'][gmim]['ge']
 		LA     = data['rho_map'][gmim]['la']
-
-	# elif model.lower() == 'all':
-		# Nmodel = 1001
-		# LE     = data['rho_rea'][gmim]['le']
-		# gammaE = data['rho_rea'][gmim]['ge']
-		# LA     = data['rho_rea'][gmim]['la']
-
-		# for gmm in data['rho_rea'][gmim]['le'].keys():
-			# LE[gmm]     = np.append(LE[gmm],data['rho_map'][gmim]['le'][gmm])
-			# gammaE[gmm] = np.append(gammaE[gmm],data['rho_map'][gmim]['ge'][gmm])
-			# LA[gmm]     = np.append(LA[gmm],data['rho_map'][gmim]['la'][gmm])
 
 	else:
 		raise NotImplementedError('gmKriger does not currently support this "model" option.')
