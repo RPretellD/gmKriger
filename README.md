@@ -1,6 +1,6 @@
 # gmKriger
 
-<b>gmKriger</b>: A Kriging-based ground motion intensity measure (GMIM) calculator. <b>gmKriger</b> computes GMIMs for past earthquake events given a site's location (latitude and longitude) and the site's Vs30. gmKriger uses Ordinary Kriging interpolation and spatial correlation model developed using a Bayesian approach, ground motion data, and the functional forms proposed by Bodenmann et al. (2023). 
+<b>gmKriger</b>: A Kriging-based ground motion intensity measure (GMIM) calculator. <b>gmKriger</b> computes GMIMs for past earthquake events given a site's location (latitude and longitude) and the site's Vs30. <b>gmKriger</b> uses Ordinary Kriging interpolation and spatial correlation model developed using a Bayesian approach, ground motion data, and the functional forms proposed by Bodenmann et al. (2023). 
 
 
 ## Ground motion intensity measures (GMIMs) and units
@@ -61,13 +61,15 @@ The spatial correlation models for the events and ground motion intensity measur
 
 ## Installation
 
-Install the following Python libraries. **Important:** `gmKriger` currently requires the above **specific `pygmm` commit.** 
+Install the following Python libraries. **Important:** `gmKriger` currently requires the below **specific `pygmm` commit.** 
 
 ```Python
-pip install gmms geostats
 pip install git+https://github.com/arkottke/pygmm@46403fd0a2c5ac1273e5837956971316360fa081
 pip install gmKriger
 ```
+
+<b>gmKriger</b> leverages both Cython and Python implementations of [geostats](https://github.com/RPretellD/geostats). For small problems, computational performance is comparable for the two. 
+The Cython implementation can significantly improve performance for larger problems. The Cython backend requires a C/C++ compiler toolchain. 
 
 
 ## How to use
